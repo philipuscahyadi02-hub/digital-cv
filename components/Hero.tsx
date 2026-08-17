@@ -45,7 +45,14 @@ export default function Hero() {
         </div>
 
         <p
-          className={`reveal ${visible} mt-8 max-w-2xl text-balance text-base leading-relaxed text-white/60 sm:text-lg`}
+          className={`reveal ${visible} mt-7 max-w-2xl text-balance text-lg font-medium leading-snug text-white/85 sm:text-xl`}
+          style={{ transitionDelay: "160ms" }}
+        >
+          {profile.tagline}
+        </p>
+
+        <p
+          className={`reveal ${visible} mt-6 max-w-2xl text-balance text-base leading-relaxed text-white/60 sm:text-lg`}
           style={{ transitionDelay: "200ms" }}
         >
           {profile.summary}

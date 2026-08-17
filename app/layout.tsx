@@ -15,14 +15,75 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+const siteUrl = "https://philipus-cahyadi-cv.vercel.app";
+const titleFull = `${profile.name} — ${profile.roles.join(" / ")}`;
+
 export const metadata: Metadata = {
-  title: `${profile.name} — ${profile.roles.join(" / ")}`,
-  description: profile.summary,
-  openGraph: {
-    title: `${profile.name} — ${profile.roles.join(" / ")}`,
-    description: profile.summary,
-    type: "profile",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: titleFull,
+    template: `%s — ${profile.name}`,
   },
+  description: profile.tagline,
+  keywords: [
+    profile.name,
+    "Philipus Cahyadi",
+    "IT Business Analyst",
+    "Business Analyst Indonesia",
+    "Presales Consultant",
+    "Product Manager",
+    "Jakarta",
+    ...profile.roles,
+  ],
+  authors: [{ name: profile.name, url: siteUrl }],
+  creator: profile.name,
+  alternates: {
+    canonical: siteUrl,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
+  openGraph: {
+    title: titleFull,
+    description: profile.tagline,
+    url: siteUrl,
+    siteName: `${profile.name} — Digital CV`,
+    type: "profile",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: titleFull,
+    description: profile.tagline,
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  url: siteUrl,
+  jobTitle: profile.roles[0],
+  description: profile.tagline,
+  email: `mailto:${profile.email}`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: profile.location,
+    addressCountry: "ID",
+  },
+  knowsAbout: [
+    "Business Analysis",
+    "Presales Consulting",
+    "Product Management",
+    "Requirement Gathering",
+    "UI/UX Collaboration",
+  ],
 };
 
 export default function RootLayout({
@@ -32,6 +93,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+      </head>
       <body className="bg-ink-950 font-sans text-white antialiased">
         {children}
       </body>

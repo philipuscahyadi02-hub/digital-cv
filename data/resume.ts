@@ -1,6 +1,8 @@
 export const profile = {
   name: "Philipus Cahyadi",
   roles: ["Business Analyst", "Presales Consultant", "Product Manager"],
+  tagline:
+    "Bridging technology and purpose, IT Business Analyst passionate about product development and driving social innovation through impactful solutions.",
   location: "North Jakarta, Jakarta",
   email: "philipus.cahyadi02@gmail.com",
   phone: "+62 822 6932 2040",
