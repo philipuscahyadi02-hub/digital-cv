@@ -1,0 +1,82 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { profile } from "@/data/resume";
+
+export default function Hero() {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRoleIndex((i) => (i + 1) % profile.roles.length);
+    }, 2600);
+    setMounted(true);
+    return () => clearInterval(id);
+  }, []);
+
+  const visible = mounted ? "is-visible" : "";
+
+  return (
+    <section
+      id="top"
+      className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden px-6 pt-20"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-grid-fade opacity-70 [background-size:auto,22px_22px]"
+      />
+
+      <div className="relative mx-auto w-full max-w-5xl">
+        <p className={`reveal ${visible} mb-6 font-mono text-xs uppercase tracking-[0.3em] text-accent/80`}>
+          {profile.location} · Available for new opportunities
+        </p>
+
+        <h1 className={`reveal ${visible} text-5xl font-semibold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl`}>
+          {profile.name}
+        </h1>
+
+        <div
+          className={`reveal ${visible} mt-5 h-9 font-mono text-lg text-white/60 sm:text-xl`}
+          style={{ transitionDelay: "120ms" }}
+        >
+          <span className="text-accent">{profile.roles[roleIndex]}</span>
+          <span className="ml-0.5 inline-block h-5 w-[2px] translate-y-0.5 animate-blink bg-accent/70 align-middle" />
+        </div>
+
+        <p
+          className={`reveal ${visible} mt-8 max-w-2xl text-balance text-base leading-relaxed text-white/60 sm:text-lg`}
+          style={{ transitionDelay: "200ms" }}
+        >
+          {profile.summary}
+        </p>
+
+        <div
+          className={`reveal ${visible} mt-10 flex flex-wrap items-center gap-4`}
+          style={{ transitionDelay: "280ms" }}
+        >
+          <a
+            href="#experience"
+            className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-ink-950 transition-transform hover:scale-[1.03] hover:bg-accent-soft"
+          >
+            View my work
+          </a>
+          <a
+            href="#contact"
+            className="rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white/80 transition-colors hover:border-accent/50 hover:text-accent"
+          >
+            Get in touch
+          </a>
+        </div>
+      </div>
+
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/30 sm:flex"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em]">scroll</span>
+        <span className="h-8 w-px animate-pulse bg-gradient-to-b from-white/40 to-transparent" />
+      </div>
+    </section>
+  );
+}

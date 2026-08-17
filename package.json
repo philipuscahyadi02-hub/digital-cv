@@ -1,0 +1,25 @@
+{
+  "name": "philipus-cahyadi-cv",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "16.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.2"
+  }
+}
