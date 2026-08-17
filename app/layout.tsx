@@ -72,6 +72,7 @@ const personJsonLd = {
   jobTitle: profile.roles[0],
   description: profile.tagline,
   email: `mailto:${profile.email}`,
+  sameAs: Object.values(profile.social),
   address: {
     "@type": "PostalAddress",
     addressLocality: profile.location,

@@ -6,6 +6,11 @@ export const profile = {
   location: "North Jakarta, Jakarta",
   email: "philipus.cahyadi02@gmail.com",
   phone: "+62 822 6932 2040",
+  social: {
+    linkedin: "https://www.linkedin.com/in/philipuscahyadi0211",
+    instagram: "https://www.instagram.com/philipus_cahyadi/",
+    github: "https://github.com/philipuscahyadi02-hub",
+  },
   summary:
     "A results-driven professional with a strong foundation in Information Systems and a dedication to continuous technological exploration and relevance. I thrive as the key interface, prioritizing direct stakeholder communication to champion innovation and translate strategic needs into practical, high-impact digital solutions. Proven in bridging the gap between presales discovery and technical execution—delivering across diverse sectors including Automotive, Logistics, HRMS, and B2B Platforms—my core strength lies in solutioning complex challenges into actionable roadmaps. I am committed to leading cross-functional teams and ensuring timely, high-quality delivery of every project.",
 };
