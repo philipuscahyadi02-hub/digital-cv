@@ -19,12 +19,12 @@ export default function Experience() {
         <ol className="space-y-14">
           {experience.map((job, idx) => (
             <li key={`${job.company}-${job.period}`} className="relative pl-10 sm:pl-12">
-              <Reveal delay={idx * 60}>
-                <span className="absolute left-0 top-1.5 flex h-4 w-4 items-center justify-center sm:h-5 sm:w-5">
-                  <span className="absolute h-full w-full rounded-full bg-accent/20" />
-                  <span className="h-2 w-2 rounded-full bg-accent" />
-                </span>
+              <span className="absolute left-0 top-1.5 flex h-4 w-4 items-center justify-center sm:h-5 sm:w-5">
+                <span className="absolute h-full w-full rounded-full bg-accent/20" />
+                <span className="h-2 w-2 rounded-full bg-accent" />
+              </span>
 
+              <Reveal delay={idx * 60}>
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
                   <h3 className="text-lg font-semibold text-white sm:text-xl">
                     {job.title}
