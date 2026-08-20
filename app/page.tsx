@@ -10,6 +10,8 @@ import ScrollProgress from "@/components/ScrollProgress";
 export default function Home() {
   return (
     <>
+      <div aria-hidden className="dot-grid pointer-events-none fixed inset-0 z-0" />
+      <div aria-hidden className="ambient-glow pointer-events-none" />
       <div aria-hidden className="noise pointer-events-none fixed inset-0 z-0" />
       <Spotlight />
       <ScrollProgress />

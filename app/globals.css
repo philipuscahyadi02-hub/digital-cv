@@ -81,16 +81,66 @@ body {
   transform: translateY(0);
 }
 
+/* Cursor spotlight: a tight, brighter core for a real highlight plus the
+   original wide falloff for ambient fill — reads with much more presence
+   than a single soft 12%-opacity wash. */
 .spotlight {
-  background: radial-gradient(
-    600px circle at var(--spotlight-x) var(--spotlight-y),
-    rgb(var(--accent) / 0.12),
-    transparent 70%
-  );
+  background:
+    radial-gradient(240px circle at var(--spotlight-x) var(--spotlight-y), rgb(var(--accent) / 0.28), transparent 55%),
+    radial-gradient(680px circle at var(--spotlight-x) var(--spotlight-y), rgb(var(--accent) / 0.16), transparent 70%);
 }
 
 .noise {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Full-page dot grid — the hero already had this pattern locally; extending
+   it site-wide gives the large blank sections between cards a technical,
+   blueprint-like texture instead of a flat fill. */
+.dot-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgb(var(--fg) / 0.09) 1px, transparent 0);
+  background-size: 26px 26px;
+}
+
+/* Two large, slow-drifting, blurred color fields sitting behind the grid —
+   gives the background a sense of depth/light instead of a hard flat
+   surface, like the page is lit from a couple of soft sources rather than
+   uniformly. */
+.ambient-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.ambient-glow::before,
+.ambient-glow::after {
+  content: "";
+  position: absolute;
+  width: 62vmax;
+  height: 62vmax;
+  border-radius: 9999px;
+  filter: blur(130px);
+  will-change: transform;
+}
+.ambient-glow::before {
+  top: -22vmax;
+  right: -18vmax;
+  background: rgb(var(--accent) / 0.16);
+  animation: drift-a 26s ease-in-out infinite alternate;
+}
+.ambient-glow::after {
+  bottom: -26vmax;
+  left: -20vmax;
+  background: rgb(var(--accent-soft) / 0.12);
+  animation: drift-b 30s ease-in-out infinite alternate;
+}
+@keyframes drift-a {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-4vmax, 3vmax) scale(1.1); }
+}
+@keyframes drift-b {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(4vmax, -3vmax) scale(1.08); }
 }
 
 /* Thin accent bar tracking scroll progress, driven by a --scroll-progress
@@ -124,5 +174,9 @@ body {
   }
   .tilt-card {
     transform: none !important;
+  }
+  .ambient-glow::before,
+  .ambient-glow::after {
+    animation: none !important;
   }
 }
