@@ -28,7 +28,7 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto w-full max-w-5xl">
-        <p className={`reveal ${visible} mb-6 font-mono text-xs uppercase tracking-[0.3em] text-accent/80`}>
+        <p className={`reveal ${visible} mb-6 font-mono text-xs uppercase tracking-[0.3em] text-accent`}>
           {profile.location} · Available for new opportunities
         </p>
 
@@ -64,13 +64,13 @@ export default function Hero() {
         >
           <a
             href="#experience"
-            className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-ink-950 transition-transform hover:scale-[1.03] hover:bg-accent-soft"
+            className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-ink-950 transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-accent-soft hover:shadow-[0_8px_24px_-8px_rgb(var(--accent)/0.6)] active:translate-y-0 active:scale-[0.98]"
           >
             View my work
           </a>
           <a
             href="#contact"
-            className="rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white/80 transition-colors hover:border-accent/50 hover:text-accent"
+            className="rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent active:translate-y-0"
           >
             Get in touch
           </a>

@@ -5,7 +5,7 @@ export default function Experience() {
   return (
     <section id="experience" className="relative mx-auto max-w-5xl px-6 py-28">
       <Reveal>
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">
           Experience
         </p>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
@@ -29,9 +29,9 @@ export default function Experience() {
                   <h3 className="text-lg font-semibold text-white sm:text-xl">
                     {job.title}
                   </h3>
-                  <span className="font-mono text-xs text-white/40">{job.period}</span>
+                  <span className="font-mono text-xs text-white/60">{job.period}</span>
                 </div>
-                <p className="mt-1 text-sm text-accent/90">{job.company}</p>
+                <p className="mt-1 text-sm text-accent">{job.company}</p>
 
                 <ul className="mt-4 space-y-2.5">
                   {job.highlights.map((h) => (

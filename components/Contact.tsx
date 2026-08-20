@@ -43,12 +43,12 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative mx-auto max-w-5xl px-6 py-28">
-      <Reveal className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] px-8 py-16 text-center sm:px-16">
+      <Reveal className="relative overflow-hidden rounded-3xl border border-white/10 bg-card px-8 py-16 text-center sm:px-16">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(125,211,192,0.12),transparent_60%)]"
         />
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">
           Contact
         </p>
         <h2 className="mx-auto mt-4 max-w-xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
@@ -61,7 +61,7 @@ export default function Contact() {
         <div className="relative mt-10 flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={copyEmail}
-            className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-ink-950 transition-transform hover:scale-[1.03] hover:bg-accent-soft"
+            className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-ink-950 transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-accent-soft hover:shadow-[0_8px_24px_-8px_rgb(var(--accent)/0.6)] active:translate-y-0 active:scale-[0.98]"
           >
             {copied ? "Copied ✓" : profile.email}
           </button>
@@ -69,7 +69,7 @@ export default function Contact() {
             href={`https://wa.me/${profile.phone.replace(/[^\d]/g, "")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white/80 transition-colors hover:border-accent/50 hover:text-accent"
+            className="rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent active:translate-y-0"
           >
             {profile.phone}
           </a>
@@ -84,7 +84,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               aria-label={link.name}
               title={link.name}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-accent/50 hover:text-accent"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white/60 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent hover:shadow-[0_4px_16px_-4px_rgb(var(--accent)/0.35)] active:translate-y-0"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
                 {link.icon}
@@ -95,7 +95,7 @@ export default function Contact() {
       </Reveal>
 
       <footer className="mt-16 flex flex-col items-center gap-2 text-center">
-        <p className="font-mono text-xs text-white/50">
+        <p className="font-mono text-xs text-white/60">
           © {new Date().getFullYear()} {profile.name}. Built for the next role.
         </p>
       </footer>
