@@ -83,7 +83,7 @@ export default function Nav() {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
         >
           <span
             className={`h-px w-5 bg-white transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
@@ -102,7 +102,7 @@ export default function Nav() {
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-sm text-white/70 hover:bg-white/5 hover:text-white"
+                  className="flex h-11 items-center rounded-lg px-3 text-sm text-white/70 hover:bg-white/5 hover:text-white"
                 >
                   {link.label}
                 </a>
@@ -112,7 +112,7 @@ export default function Nav() {
               <a
                 href="/Philipus-Cahyadi-Resume.pdf"
                 download
-                className="mt-1 block rounded-lg px-3 py-2 text-sm text-accent hover:bg-white/5"
+                className="mt-1 flex h-11 items-center rounded-lg px-3 text-sm text-accent hover:bg-white/5"
               >
                 Resume ↓
               </a>
