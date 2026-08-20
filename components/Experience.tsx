@@ -5,12 +5,12 @@ export default function Experience() {
   return (
     <section id="experience" className="relative mx-auto max-w-5xl px-6 py-28">
       <Reveal>
-        <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
           Experience
-        </h2>
-        <p className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          Where I've delivered
         </p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          Where I've delivered
+        </h2>
       </Reveal>
 
       <div className="relative mt-16">

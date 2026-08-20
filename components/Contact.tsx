@@ -48,12 +48,12 @@ export default function Contact() {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(125,211,192,0.12),transparent_60%)]"
         />
-        <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
           Contact
-        </h2>
-        <p className="mx-auto mt-4 max-w-xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          Let's build something worth shipping.
         </p>
+        <h2 className="mx-auto mt-4 max-w-xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          Let's build something worth shipping.
+        </h2>
         <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/60">
           Open to Business Analyst, Presales, and Product roles. Based in {profile.location}.
         </p>

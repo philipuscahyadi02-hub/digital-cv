@@ -5,12 +5,12 @@ export default function Projects() {
   return (
     <section id="projects" className="relative mx-auto max-w-5xl px-6 py-28">
       <Reveal>
-        <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
           Projects
-        </h2>
-        <p className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          Selected engagements
         </p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          Selected engagements
+        </h2>
       </Reveal>
 
       <div className="mt-12 grid gap-5 sm:grid-cols-2">

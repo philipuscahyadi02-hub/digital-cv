@@ -23,12 +23,12 @@ export default function Skills() {
   return (
     <section id="skills" className="relative mx-auto max-w-5xl px-6 py-28">
       <Reveal>
-        <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent/80">
           Skills &amp; Tools
-        </h2>
-        <p className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-          What I work with
         </p>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          What I work with
+        </h2>
       </Reveal>
 
       <div className="mt-12 grid gap-6 md:grid-cols-2">
