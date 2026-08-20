@@ -5,6 +5,33 @@
 :root {
   --spotlight-x: 50%;
   --spotlight-y: 30%;
+
+  /* Dark ("night mode") is the default look — values match the original
+     hardcoded design exactly, so nothing shifts for anyone who never
+     touches the theme toggle. */
+  --surface: 7 7 11;
+  --card: 255 255 255;
+  --card-alpha: 0.02;
+  --fg: 255 255 255;
+  --accent: 125 211 192;
+  --accent-soft: 155 230 214;
+  --accent-dim: 63 111 102;
+  --scrollbar-track: 7 7 11;
+  --scrollbar-thumb: 31 31 46;
+  --scrollbar-thumb-hover: 42 42 61;
+}
+
+:root[data-theme="light"] {
+  --surface: 250 249 247;
+  --card: 10 10 20;
+  --card-alpha: 0.035;
+  --fg: 13 13 18;
+  --accent: 13 118 108;
+  --accent-soft: 15 143 130;
+  --accent-dim: 178 218 211;
+  --scrollbar-track: 250 249 247;
+  --scrollbar-thumb: 214 212 208;
+  --scrollbar-thumb-hover: 196 194 189;
 }
 
 * {
@@ -12,13 +39,12 @@
 }
 
 body {
-  background-color: #07070b;
-  color: #e7e7ee;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 ::selection {
-  background-color: #7dd3c0;
-  color: #07070b;
+  background-color: rgb(var(--accent));
+  color: rgb(var(--surface));
 }
 
 /* subtle scrollbar */
@@ -26,15 +52,23 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #07070b;
+  background: rgb(var(--scrollbar-track));
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f1f2e;
+  background: rgb(var(--scrollbar-thumb));
   border-radius: 999px;
-  border: 2px solid #07070b;
+  border: 2px solid rgb(var(--scrollbar-track));
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a2a3d;
+  background: rgb(var(--scrollbar-thumb-hover));
+}
+
+/* Keyboard focus ring, matched to the brand accent instead of the browser
+   default. Only shows for keyboard users (:focus-visible), never on click. */
+:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 .reveal {
@@ -50,11 +84,45 @@ body {
 .spotlight {
   background: radial-gradient(
     600px circle at var(--spotlight-x) var(--spotlight-y),
-    rgba(125, 211, 192, 0.12),
+    rgb(var(--accent) / 0.12),
     transparent 70%
   );
 }
 
 .noise {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* Thin accent bar tracking scroll progress, driven by a --scroll-progress
+   custom property set from JS (transform-only, no layout cost). */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 60;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--scroll-progress, 0));
+  background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent-soft)));
+}
+
+/* 3D tilt on project cards, driven by --tilt-x/--tilt-y set from JS. */
+.tilt-card {
+  transform: perspective(800px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translateZ(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .tilt-card {
+    transform: none !important;
+  }
 }

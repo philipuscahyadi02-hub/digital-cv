@@ -93,14 +93,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
+    <html lang="en" className={`${inter.variable} ${jetbrains.variable}`} suppressHydrationWarning>
       <head>
+        <script
+          // Runs before paint so switching themes never flashes the wrong
+          // palette. Defaults to dark for first-time visitors regardless of
+          // OS preference — dark is this site's deliberate default look.
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('cv-theme');if(t==='light'){document.documentElement.setAttribute('data-theme','light')}}catch(e){}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
-      <body className="bg-ink-950 font-sans text-white antialiased">
+      <body className="bg-surface font-sans text-white antialiased">
         {children}
       </body>
     </html>

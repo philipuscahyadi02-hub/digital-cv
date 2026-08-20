@@ -9,6 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Fixed (never flips with theme) — used for text that sits on the
+        // accent-colored buttons, which stays dark in both light and dark mode.
         ink: {
           950: "#07070b",
           900: "#0b0b12",
@@ -16,10 +18,20 @@ const config: Config = {
           700: "#1b1b28",
           600: "#26263a",
         },
+        // Theme-aware tokens, backed by CSS variables in globals.css so
+        // switching themes needs no per-component dark:/light: variants.
+        // `white` itself is overridden so every existing text-white,
+        // bg-white/X, border-white/X utility repaints automatically.
+        white: "rgb(var(--fg) / <alpha-value>)",
+        surface: "rgb(var(--surface) / <alpha-value>)",
+        // Card tint's own alpha is set per-theme (globals.css) rather than
+        // via Tailwind's opacity modifier, since dark/light need different
+        // strengths to read at the same visual weight.
+        card: "rgb(var(--card) / var(--card-alpha))",
         accent: {
-          DEFAULT: "#7dd3c0",
-          soft: "#9be6d6",
-          dim: "#3f6f66",
+          DEFAULT: "rgb(var(--accent) / <alpha-value>)",
+          soft: "rgb(var(--accent-soft) / <alpha-value>)",
+          dim: "rgb(var(--accent-dim) / <alpha-value>)",
         },
         signal: {
           DEFAULT: "#e6b95c",
@@ -31,7 +43,7 @@ const config: Config = {
       },
       backgroundImage: {
         "grid-fade":
-          "linear-gradient(to bottom, transparent, rgba(7,7,11,1) 85%), radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0)",
+          "linear-gradient(to bottom, transparent, rgb(var(--surface)) 85%), radial-gradient(circle at 1px 1px, rgb(var(--fg) / 0.06) 1px, transparent 0)",
       },
       keyframes: {
         "fade-up": {

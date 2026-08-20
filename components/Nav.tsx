@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { href: "#experience", label: "Experience" },
@@ -44,7 +45,7 @@ export default function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "border-b border-white/5 bg-ink-950/80 backdrop-blur-lg" : "border-b border-transparent"
+        scrolled ? "border-b border-white/5 bg-surface/80 backdrop-blur-lg" : "border-b border-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
@@ -72,30 +73,34 @@ export default function Nav() {
           ))}
         </ul>
 
-        <a
-          href="/Philipus-Cahyadi-Resume.pdf"
-          download
-          className="hidden rounded-full border border-white/10 px-4 py-1.5 text-sm text-white/80 transition-colors hover:border-accent/60 hover:text-accent md:inline-block"
-        >
-          Resume ↓
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="/Philipus-Cahyadi-Resume.pdf"
+            download
+            className="hidden rounded-full border border-white/10 px-4 py-1.5 text-sm text-white/80 transition-colors hover:border-accent/60 hover:text-accent md:inline-block"
+          >
+            Resume ↓
+          </a>
 
-        <button
-          aria-label="Toggle menu"
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
-        >
-          <span
-            className={`h-px w-5 bg-white transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
-          />
-          <span
-            className={`h-px w-5 bg-white transition-transform ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
-          />
-        </button>
+          <ThemeToggle />
+
+          <button
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
+          >
+            <span
+              className={`h-px w-5 bg-white transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+            />
+            <span
+              className={`h-px w-5 bg-white transition-transform ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+            />
+          </button>
+        </div>
       </nav>
 
       {open && (
-        <div className="border-t border-white/5 bg-ink-950/95 px-6 py-4 backdrop-blur-lg md:hidden">
+        <div className="border-t border-white/5 bg-surface/95 px-6 py-4 backdrop-blur-lg md:hidden">
           <ul className="flex flex-col gap-1">
             {links.map((link) => (
               <li key={link.href}>
