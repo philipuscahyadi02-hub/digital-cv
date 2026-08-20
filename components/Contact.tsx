@@ -95,7 +95,7 @@ export default function Contact() {
       </Reveal>
 
       <footer className="mt-16 flex flex-col items-center gap-2 text-center">
-        <p className="font-mono text-xs text-white/30">
+        <p className="font-mono text-xs text-white/50">
           © {new Date().getFullYear()} {profile.name}. Built for the next role.
         </p>
       </footer>
