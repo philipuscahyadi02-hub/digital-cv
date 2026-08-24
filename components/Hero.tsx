@@ -22,11 +22,6 @@ export default function Hero() {
       id="top"
       className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden px-6 pt-20"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-grid-fade opacity-70 [background-size:auto,22px_22px]"
-      />
-
       <div className="relative mx-auto w-full max-w-5xl">
         <p className={`reveal ${visible} mb-6 font-mono text-xs uppercase tracking-[0.3em] text-accent`}>
           {profile.location} · Available for new opportunities
@@ -82,7 +77,9 @@ export default function Hero() {
         className="pointer-events-none absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/30 sm:flex"
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.3em]">scroll</span>
-        <span className="h-8 w-px animate-pulse bg-gradient-to-b from-white/40 to-transparent" />
+        <span className="relative h-8 w-px overflow-hidden bg-white/15">
+          <span className="scroll-cue-dot absolute inset-x-0 top-0 h-2.5 rounded-full bg-accent" />
+        </span>
       </div>
     </section>
   );

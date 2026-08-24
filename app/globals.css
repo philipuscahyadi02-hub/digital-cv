@@ -143,6 +143,18 @@ body {
   to { transform: translate(4vmax, -3vmax) scale(1.08); }
 }
 
+/* Hero scroll cue: a dot traveling down the track and fading, reading as
+   actual downward motion instead of a flat opacity pulse. */
+.scroll-cue-dot {
+  animation: scroll-cue 1.7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes scroll-cue {
+  0% { transform: translateY(-10px); opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { transform: translateY(32px); opacity: 0; }
+}
+
 /* Thin accent bar tracking scroll progress, driven by a --scroll-progress
    custom property set from JS (transform-only, no layout cost). */
 .scroll-progress {
