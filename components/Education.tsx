@@ -30,11 +30,13 @@ export default function Education() {
             </div>
           </div>
 
-          <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 text-center">
-            {facts.map((f) => (
-              <div key={f.label} className="bg-surface/90 px-4 py-3">
+          {/* Phone: Focus gets its own row, GPA + Graduated share the next.
+              Desktop: one row with a wider Focus column so "Business Intelligence" fits on one line. */}
+          <dl className="grid w-full grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 text-center sm:w-[26rem] sm:shrink-0 sm:grid-cols-[1.7fr_1fr_1fr]">
+            {facts.map((f, i) => (
+              <div key={f.label} className={`min-w-0 bg-surface/90 px-3 py-3 ${i === 0 ? "col-span-2 sm:col-span-1" : ""}`}>
                 <dt className="font-mono text-[10px] uppercase tracking-wider text-white/50">{f.label}</dt>
-                <dd className="mt-1 whitespace-nowrap text-sm font-semibold text-white">{f.value}</dd>
+                <dd className="mt-1 text-balance text-sm font-semibold leading-snug text-white">{f.value}</dd>
               </div>
             ))}
           </dl>
