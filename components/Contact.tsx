@@ -44,7 +44,7 @@ export default function Contact() {
   return (
     <section id="contact" data-fx className="relative mx-auto max-w-5xl px-6 py-28">
       <div className="fx-zoom">
-      <Reveal className="relative overflow-hidden rounded-3xl border border-white/10 bg-card px-8 py-16 text-center sm:px-16">
+      <Reveal className="relative overflow-hidden rounded-3xl border border-white/10 bg-card px-5 py-14 text-center sm:px-16 sm:py-16">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(125,211,192,0.12),transparent_60%)]"
@@ -62,7 +62,7 @@ export default function Contact() {
         <div className="relative mt-10 flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={copyEmail}
-            className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-ink-950 transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-accent-soft hover:shadow-[0_8px_24px_-8px_rgb(var(--accent)/0.6)] active:translate-y-0 active:scale-[0.98]"
+            className="max-w-full break-all rounded-full bg-accent px-5 py-3 text-[13px] font-medium sm:px-6 sm:text-sm text-ink-950 transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-accent-soft hover:shadow-[0_8px_24px_-8px_rgb(var(--accent)/0.6)] active:translate-y-0 active:scale-[0.98]"
           >
             {copied ? "Copied ✓" : profile.email}
           </button>
