@@ -1,0 +1,657 @@
+/* Build-card previews. Everything is scoped under .tp (Tama) or .sp (SNITCH). */
+
+/* Status badge on a build card (e.g. "Postponed"), readable in both themes */
+.status-badge { color: #fcd34d; border-color: rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.1); }
+:root[data-theme="light"] .status-badge { color: #92400e; border-color: rgba(180, 83, 9, 0.35); background: rgba(251, 191, 36, 0.18); }
+
+/* ================= Tama ================= */
+.tp {
+  position: relative;
+  height: 11rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(120% 90% at 50% 110%, rgba(255, 143, 191, 0.22), transparent 60%),
+    radial-gradient(80% 60% at 85% 0%, rgba(147, 210, 129, 0.16), transparent 70%),
+    rgb(var(--fg) / 0.03);
+  border: 1px solid rgb(var(--fg) / 0.08);
+}
+.tp-sky {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(var(--fg) / 0.12) 1px, transparent 1px);
+  background-size: 14px 14px;
+  mask-image: linear-gradient(to bottom, black, transparent 75%);
+}
+/* The edge she hides behind */
+.tp-ledge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 26px;
+  z-index: 2;
+  background: linear-gradient(to bottom, #ffd6e7, #ffb8d4);
+  border-top: 2px solid #ff8fbf;
+  box-shadow: 0 -6px 14px rgba(255, 61, 144, 0.12);
+}
+.tp-ledge::after {
+  content: "";
+  position: absolute;
+  inset: 6px 0 auto;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0 10px, transparent 10px 22px);
+}
+.tp-x {
+  position: absolute;
+  z-index: 1;
+  left: calc(50% - 55px);
+  bottom: 14px;
+  width: 110px;
+  height: 132px;
+  transition: transform 1s cubic-bezier(0.55, 0, 0.75, 0.4);
+}
+.tp-y {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: translateY(105%);
+  transition: transform 0.5s cubic-bezier(0.3, 1.5, 0.6, 1);
+}
+.tp .tama-rig { width: 100%; height: 100%; }
+
+.tp-peek .tp-y { transform: translateY(58%); transition-duration: 0.7s; }
+.tp-out .tp-y { animation: tp-hop 0.6s cubic-bezier(0.3, 1.4, 0.6, 1) both; transform: none; }
+.tp-wave .tp-y, .tp-notice .tp-y, .tp-run .tp-y, .tp-gone .tp-y { transform: none; }
+.tp-notice .tp-y { animation: tp-jolt 0.25s ease-out 1; }
+.tp-run .tp-x, .tp-gone .tp-x { transform: translateX(260%); }
+.tp-run .rig-svg { animation: tp-waddle 0.22s ease-in-out infinite; transform-origin: 50% 100%; }
+/* Reset back behind the ledge without being seen */
+.tp-gone .tp-x, .tp-hidden .tp-x, .tp-hidden .tp-y { transition: none; }
+
+@keyframes tp-hop {
+  0% { transform: translateY(58%); }
+  45% { transform: translateY(-22%) scale(1.04, 0.96); }
+  100% { transform: none; }
+}
+@keyframes tp-jolt { 40% { transform: translateY(-8px); } 100% { transform: none; } }
+@keyframes tp-waddle {
+  0%, 100% { transform: rotate(-7deg) translateY(0); }
+  50% { transform: rotate(7deg) translateY(-6px); }
+}
+
+.tp-mark {
+  position: absolute;
+  top: -6px;
+  right: 4px;
+  font: 700 26px/1 var(--font-inter), system-ui, sans-serif;
+  color: #ff3d90;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.15s, transform 0.25s cubic-bezier(0.3, 1.8, 0.6, 1);
+}
+.tp-notice .tp-mark { opacity: 1; transform: scale(1) rotate(12deg); }
+
+.tp-heart {
+  position: absolute;
+  top: 20px;
+  font-size: 15px;
+  color: #ff6f96;
+  opacity: 0;
+}
+.tp-heart-1 { left: -6px; }
+.tp-heart-2 { right: -4px; top: 6px; font-size: 18px; }
+.tp-heart-3 { left: 14px; top: -4px; font-size: 12px; }
+.tp-wave .tp-heart { animation: tp-float 1.4s ease-out both; }
+.tp-wave .tp-heart-2 { animation-delay: 0.25s; }
+.tp-wave .tp-heart-3 { animation-delay: 0.5s; }
+@keyframes tp-float {
+  0% { opacity: 0; transform: translateY(8px) scale(0.5); }
+  25% { opacity: 1; transform: translateY(0) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-34px) scale(0.9); }
+}
+
+.tp-dust {
+  position: absolute;
+  z-index: 3;
+  bottom: 22px;
+  left: 50%;
+  width: 60px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(rgba(255, 255, 255, 0.9), transparent 70%);
+  opacity: 0;
+  transform: translateX(-50%) scale(0.4);
+}
+.tp-out .tp-dust { animation: tp-puff 0.5s ease-out both; }
+.tp-run .tp-dust { left: 72%; animation: tp-puff 0.45s ease-out 0.1s both; }
+@keyframes tp-puff {
+  0% { opacity: 0.9; transform: translateX(-50%) scale(0.4); }
+  100% { opacity: 0; transform: translateX(-50%) scale(1.6); }
+}
+
+/* --- Tama's rig: ported from tama/src/renderer/shared/rig.css, scoped --- */
+.tp .rig-svg { width: 100%; height: 100%; overflow: visible; }
+.tp .headGroup, .tp .bodyGroup, .tp .tail, .tp .motif-tail { transform-box: view-box; }
+.tp .headGroup { transform-origin: 100px 160px; animation: tp-tilt 3.2s ease-in-out infinite; }
+.tp .tail-l { transform-origin: 46px 126px; animation: tp-swayL 2.8s ease-in-out infinite; }
+.tp .tail-r { transform-origin: 154px 126px; animation: tp-swayR 2.8s ease-in-out infinite; }
+.tp .motif-tail { transform-origin: 136px 206px; animation: tp-swayR 2.4s ease-in-out infinite; }
+.tp-run .tail-l, .tp-run .tail-r { animation-duration: 0.3s; }
+.tp .ahoge { transform-box: fill-box; transform-origin: 30% 100%; animation: tp-ahoge 2.2s ease-in-out infinite; }
+.tp .arm { transform-box: fill-box; transform-origin: 50% 10%; }
+.tp .mood-sparkle .arm-r { animation: tp-wave 0.4s ease-in-out 4; }
+.tp-run .arm { animation: tp-pump 0.22s ease-in-out infinite; }
+@keyframes tp-tilt { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-2.5deg) translateY(1px); } 65% { transform: rotate(2deg); } }
+@keyframes tp-swayL { 50% { transform: rotate(6deg); } }
+@keyframes tp-swayR { 50% { transform: rotate(-6deg); } }
+@keyframes tp-ahoge { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(10deg); } }
+@keyframes tp-wave { 50% { transform: rotate(-40deg); } }
+@keyframes tp-pump { 0%, 100% { transform: rotate(-18deg); } 50% { transform: rotate(18deg); } }
+
+.tp .eyes, .tp .mouth, .tp .lids, .tp .brows, .tp .tears, .tp .glasses, .tp .puff, .tp .stars { display: none; }
+.tp .eyes-open .eye { transform-box: fill-box; transform-origin: center; animation: tp-blink 4.6s infinite; }
+@keyframes tp-blink { 0%, 94%, 100% { transform: scaleY(1); } 96.5% { transform: scaleY(0.08); } }
+.tp .mood-normal .eyes-open, .tp .mood-normal .mouth-cat { display: inline; }
+.tp .mood-happy .eyes-happy, .tp .mood-happy .mouth-smile { display: inline; }
+.tp .mood-sparkle .eyes-open, .tp .mood-sparkle .stars, .tp .mood-sparkle .mouth-smile { display: inline; }
+.tp .mood-sparkle .hl { display: none; }
+.tp .mood-shock .eyes-shock, .tp .mood-shock .mouth-o { display: inline; }
+
+/* ================= Onikiri ================= */
+/* Colours from onikiri/style.css and src/render.js */
+.ok {
+  --bg: #0d0b10;
+  --fg: #f2ece2;
+  --red: #d8323c;
+  --hot: #ff4652;
+  --gold: #f0c35a;
+  --violet: #9b6cff;
+  --gap: 46px; /* strike line distance from the samurai */
+  /* System Japanese fonts: no download (a web font for 3 kanji cost ~1.3 MB) */
+  font-family: "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif;
+  position: relative;
+  height: 11rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--bg);
+  border: 1px solid rgb(var(--fg) / 0.08);
+  color: var(--fg);
+  transition: opacity 0.5s ease;
+}
+.ok.on-fade { opacity: 0; }
+.ok-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #1a1322, #120e18 60%);
+  transition: background 0.3s;
+}
+.on-ult .ok-sky { background: linear-gradient(to bottom, #3a0f18, #1d0b12 60%); }
+.ok-moon {
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  width: 92px;
+  height: 92px;
+  margin-left: -46px;
+  border-radius: 50%;
+  background: var(--red);
+  opacity: 0.9;
+  box-shadow: 0 0 40px rgba(216, 50, 60, 0.35);
+  transition: background 0.3s, transform 0.3s;
+}
+.on-ult .ok-moon { background: var(--hot); animation: ok-pulse 0.25s ease-in-out infinite alternate; }
+@keyframes ok-pulse { to { transform: scale(1.06); } }
+.ok-rays {
+  position: absolute;
+  left: 50%;
+  top: 68px;
+  width: 600px;
+  height: 600px;
+  margin: -300px 0 0 -300px;
+  background: repeating-conic-gradient(rgba(255, 255, 255, 0.07) 0 4deg, transparent 4deg 26deg);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.on-ult .ok-rays { opacity: 1; animation: ok-spin 6s linear infinite; }
+@keyframes ok-spin { to { transform: rotate(360deg); } }
+
+.ok-hud {
+  position: absolute;
+  inset: 8px 10px auto;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #8f8798;
+}
+.ok-hud b { color: var(--fg); font-weight: 900; font-variant-numeric: tabular-nums; }
+.ok-hud .is-on { color: var(--gold); }
+
+.ok-ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, #17141d, #0a0810);
+  border-top: 1px solid #2b2433;
+}
+.ok-line {
+  position: absolute;
+  bottom: 30px;
+  width: 2px;
+  height: 64px;
+  background: linear-gradient(to top, var(--gold), transparent);
+  opacity: 0.55;
+}
+.ok-line-l { left: calc(50% - var(--gap)); }
+.ok-line-r { left: calc(50% + var(--gap)); }
+
+/* The samurai stands on the ground, centred; flips to face the side being struck */
+.ok-sam {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+}
+.ok-sam svg { display: block; transition: transform 0.08s; }
+.ok-sam.is-left svg { transform: scaleX(-1); }
+.on-l-hit .ok-sam, .on-r-hit .ok-sam, .on-n-hit .ok-sam { animation: ok-lunge 0.25s ease-out; }
+@keyframes ok-lunge { 40% { transform: translateX(-50%) translateY(-6px); } }
+
+/* Enemies rush in from off-stage and stop at the strike line */
+.ok-foe {
+  position: absolute;
+  z-index: 1;
+  bottom: 30px;
+  opacity: 0;
+}
+.ok-grunt, .ok-ninja { left: -40px; }
+.ok-archer { left: calc(100% + 10px); }
+.on-l-in .ok-grunt { opacity: 1; left: calc(50% - var(--gap) - 32px); transition: left 0.8s linear; animation: ok-run 0.18s steps(2) infinite; }
+.on-r-in .ok-archer { opacity: 1; left: calc(50% + var(--gap) + 2px); transition: left 0.75s linear; animation: ok-run 0.18s steps(2) infinite; }
+.on-n-in .ok-ninja { opacity: 1; left: calc(50% - var(--gap) - 32px); transition: left 0.45s cubic-bezier(0.5, 0, 1, 1); }
+/* ...and are cut down where they stand */
+.on-l-hit .ok-grunt { left: calc(50% - var(--gap) - 32px); animation: ok-die 0.55s ease-out forwards; }
+.on-r-hit .ok-archer { left: calc(50% + var(--gap) + 2px); animation: ok-die 0.55s ease-out forwards; }
+.on-n-hit .ok-ninja { left: calc(50% - var(--gap) - 32px); animation: ok-die 0.55s ease-out forwards; }
+@keyframes ok-run { 50% { transform: translateY(-2px); } }
+@keyframes ok-die {
+  0% { opacity: 1; filter: brightness(3); }
+  30% { opacity: 1; filter: brightness(1); transform: translateY(-4px) rotate(-8deg); }
+  100% { opacity: 0; transform: translateY(8px) rotate(-30deg); }
+}
+
+/* Gold slash arcs */
+.ok-slash {
+  position: absolute;
+  z-index: 3;
+  bottom: 40px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  opacity: 0;
+}
+.ok-slash-l { left: calc(50% - var(--gap) - 40px); border-left-color: var(--gold); border-top-color: var(--gold); }
+.ok-slash-r { left: calc(50% + var(--gap) - 24px); border-right-color: var(--gold); border-top-color: var(--gold); }
+.on-l-hit .ok-slash-l, .on-n-hit .ok-slash-l, .on-r-hit .ok-slash-r { animation: ok-slash 0.35s ease-out; }
+@keyframes ok-slash {
+  0% { opacity: 1; transform: rotate(-60deg) scale(0.7); }
+  100% { opacity: 0; transform: rotate(40deg) scale(1.15); }
+}
+
+.ok-callout {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 46px;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+  /* Dark outline so the word reads on top of the red moon */
+  text-shadow: 0 2px 0 #0d0b10, 0 -1px 0 #0d0b10, 2px 0 0 #0d0b10, -2px 0 0 #0d0b10, 0 0 14px rgba(0, 0, 0, 0.7);
+  transform: translateX(-50%);
+  animation: ok-pop 0.6s ease-out both;
+}
+.ok-callout.is-perfect {
+  color: var(--gold);
+  text-shadow: 0 2px 0 #0d0b10, 0 -1px 0 #0d0b10, 2px 0 0 #0d0b10, -2px 0 0 #0d0b10, 0 0 14px rgba(240, 195, 90, 0.55);
+}
+@keyframes ok-pop {
+  0% { opacity: 0; transform: translate(-50%, 8px) scale(0.6); }
+  25% { opacity: 1; transform: translate(-50%, 0) scale(1.15); }
+  100% { opacity: 0; transform: translate(-50%, -14px) scale(1); }
+}
+
+/* The ult: screen flash, big kanji */
+.ok-ult {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  opacity: 0;
+  pointer-events: none;
+}
+.ok-ult b { font-size: 40px; font-weight: 900; color: var(--fg); text-shadow: 0 0 18px rgba(255, 70, 82, 0.8); letter-spacing: 0.06em; }
+.ok-ult small { font-size: 9px; font-weight: 500; letter-spacing: 0.3em; color: var(--gold); }
+.ok.on-ult .ok-ult { animation: ok-ult 1.3s ease-out both; }
+@keyframes ok-ult {
+  0% { opacity: 0; transform: scale(1.6); background: rgba(255, 255, 255, 0.9); }
+  12% { opacity: 1; transform: scale(1); background: rgba(255, 255, 255, 0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ================= WangKu ================= */
+.wk {
+  --primary: #1a4fa0;
+  --gold: #d4a339;
+  --gold-bg: #fbf1dc;
+  --warn: #c0392b;
+  --warn-bg: #fdeeec;
+  --ok: #1e8a4c;
+  --text: #1a1d21;
+  --muted: #6b7280;
+  --line: #e7eaee;
+  position: relative;
+  height: 11rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  padding: 9px 12px;
+  background: #fafbfc;
+  border: 1px solid rgb(var(--fg) / 0.08);
+  color: var(--text);
+  transition: opacity 0.6s ease;
+}
+.wk.on-fade { opacity: 0; }
+.wk.on-empty { transition: none; }
+
+.wk-head { display: flex; align-items: center; justify-content: space-between; height: 18px; }
+.wk-logo { font-weight: 800; font-size: 14px; color: var(--primary); letter-spacing: -0.01em; }
+.wk-logo b { color: var(--gold); font-weight: 800; }
+.wk-tab {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--primary);
+  background: #e7f0fc;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.wk-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+.wk-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 5px 8px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 6px rgba(16, 24, 40, 0.05);
+  transition: background 0.4s, border-color 0.4s;
+}
+.wk-stat-label { font-size: 9px; font-weight: 500; color: var(--muted); }
+.wk-stat-num {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--primary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.wk-stat-warn { background: var(--warn-bg); border-color: #f4c9c2; }
+.wk-stat-warn .wk-stat-num { color: var(--warn); }
+/* Good news is gold, as in WangKu's DESIGN.md */
+.wk-stat-warn.is-clear { background: var(--gold-bg); border-color: #efd9a6; }
+.wk-stat-warn.is-clear .wk-stat-num { color: #a87a17; }
+
+.wk-rows { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 3px; }
+.wk-row {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: 7px;
+  height: 25px;
+  padding: 0 8px;
+  border-radius: 9px;
+  background: #fff;
+  border: 1px solid var(--line);
+  opacity: 0;
+  transform: translateX(18px);
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2), background 0.4s;
+}
+/* Rows slide in after the totals have counted up */
+.wk:not(.on-empty):not(.on-stats) .wk-row { opacity: 1; transform: none; }
+.wk.on-empty .wk-row { transition: none; }
+
+.wk-ico {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+}
+.wk-sub .wk-ico { background: #b81d24; }
+.wk-pay .wk-ico { background: #ee4d2d; }
+.wk-debt .wk-ico { background: var(--primary); }
+.wk-name { display: flex; flex-direction: column; min-width: 0; font-size: 10px; font-weight: 700; line-height: 1.15; }
+.wk-name small { font-size: 8.5px; font-weight: 500; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wk-debt .wk-name small { color: var(--warn); }
+.wk-amt { font-size: 10px; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
+
+.wk-debt.is-paid { background: #e9f6ef; border-color: #bfe3cd; }
+.wk-debt.is-paid .wk-ico { background: var(--ok); }
+.wk-debt.is-paid .wk-name small { color: var(--ok); }
+.wk-debt.is-paid .wk-amt { color: var(--muted); text-decoration: line-through; }
+
+/* The tap on the overdue debt */
+.wk-ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: rgba(26, 79, 160, 0.25);
+  opacity: 0;
+  pointer-events: none;
+}
+.wk.on-tap .wk-ripple { animation: wk-ripple 0.55s ease-out both; }
+@keyframes wk-ripple {
+  0% { opacity: 1; transform: scale(0.4); }
+  100% { opacity: 0; transform: scale(12); }
+}
+
+/* ================= SNITCH ================= */
+.sp {
+  --ink: #0b0b0d;
+  --paper: #f2ebdd;
+  --alarm: #ff2a2a;
+  --signal: #1fe7c8;
+  --ash: #6e6a63;
+  position: relative;
+  height: 11rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--ink);
+  border: 1px solid rgb(var(--fg) / 0.08);
+  color: var(--paper);
+}
+.sp-scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+/* The old scene fades out first, then the new one fades in (no overlap) */
+.on-case .sp-case, .on-talk .sp-talk, .on-slam .sp-slam, .on-verdict .sp-verdict {
+  opacity: 1;
+  transition: opacity 0.35s ease 0.2s;
+}
+/* The slam blackout is instant (0 ms), as in the game */
+.on-black .sp-scene, .on-slam .sp-scene { transition: none; }
+.on-fade .sp-verdict { transition: opacity 1s ease; }
+
+/* The case */
+.sp-title {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-size: 34px;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  transform: rotate(-6deg);
+  transform-origin: left top;
+}
+.sp-title span { display: block; padding-left: 20%; color: var(--alarm); }
+.sp-strip {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  min-height: 62px;
+  padding: 10px 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 12px/1.45 var(--font-jetbrains), ui-monospace, monospace;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.sp-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 13px;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: var(--ink);
+  animation: sp-blink 0.9s step-start infinite;
+}
+@keyframes sp-blink { 50% { opacity: 0; } }
+
+/* The talk */
+.sp-label {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font: 500 10px/1 var(--font-jetbrains), ui-monospace, monospace;
+  letter-spacing: 0.25em;
+  color: var(--ash);
+}
+.sp-timer {
+  position: absolute;
+  top: 28px;
+  left: 14px;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--signal);
+  font-variant-numeric: tabular-nums;
+}
+.sp-timer.is-hot { color: var(--alarm); animation: sp-jitter 0.12s steps(2) infinite; }
+@keyframes sp-jitter {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(1.5px, -1px); }
+  100% { transform: translate(-1px, 1px); }
+}
+.sp-aces {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: flex;
+  gap: 6px;
+}
+.sp-aces span {
+  padding: 5px 7px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 700 9px/1 var(--font-jetbrains), ui-monospace, monospace;
+  letter-spacing: 0.08em;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+}
+.sp-button {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  width: 136px;
+  height: 136px;
+  margin-top: -68px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding-right: 22px;
+  font-size: 30px;
+  color: var(--ink);
+  background: var(--alarm);
+  border: 5px solid var(--ink);
+  box-shadow: 0 0 0 3px var(--alarm);
+  isolation: isolate;
+}
+.sp-button::before {
+  /* halftone shading on the lower-left only, as in the design doc */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(rgba(11, 11, 13, 0.4) 1.4px, transparent 1.7px) 0 0 / 7px 7px;
+  -webkit-mask-image: linear-gradient(45deg, black 25%, transparent 55%);
+  mask-image: linear-gradient(45deg, black 25%, transparent 55%);
+}
+.on-talk .sp-button { animation: sp-pulse 1.5s ease-in-out infinite; }
+@keyframes sp-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--alarm); }
+  50% { box-shadow: 0 0 0 9px rgba(255, 42, 42, 0.25); }
+}
+
+/* The slam */
+.sp-slammer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 38px;
+  color: var(--alarm);
+  transform: rotate(-5deg);
+}
+
+/* The verdict */
+.sp-verdict { background: var(--paper); color: var(--ink); }
+.sp-file {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font: 500 10px/1 var(--font-jetbrains), ui-monospace, monospace;
+  letter-spacing: 0.2em;
+  color: var(--ash);
+}
+.sp-stamp {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 2px 14px;
+  font-size: 50px;
+  line-height: 1.05;
+  color: var(--alarm);
+  border: 4px solid var(--alarm);
+  transform: translate(-50%, -50%) rotate(-12deg);
+  -webkit-mask-image: radial-gradient(circle at 30% 40%, black 55%, rgba(0, 0, 0, 0.55) 75%), repeating-radial-gradient(circle at 70% 60%, black 0 2px, rgba(0, 0, 0, 0.7) 2px 3px);
+  mask-image: radial-gradient(circle at 30% 40%, black 55%, rgba(0, 0, 0, 0.55) 75%);
+}
+.on-verdict .sp-stamp { animation: sp-stamp 0.32s cubic-bezier(0.2, 1.6, 0.5, 1) 0.35s both; }
+@keyframes sp-stamp {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotate(-12deg) scale(2.2); }
+  100% { opacity: 1; transform: translate(-50%, -50%) rotate(-12deg) scale(1); }
+}

@@ -19,9 +19,23 @@
   --scrollbar-track: 7 7 11;
   --scrollbar-thumb: 31 31 46;
   --scrollbar-thumb-hover: 42 42 61;
+
+  /* Supporting hues. Teal (accent) stays the lead; each of these gives one
+     area its own identity (skills groups, sectors, builds, stats). */
+  --hue-sky: 125 185 255;
+  --hue-violet: 178 152 255;
+  --hue-amber: 240 196 108;
+  --hue-coral: 242 140 110;
+  --hue-rose: 255 143 191;
 }
 
 :root[data-theme="light"] {
+  /* Deeper versions so text in these hues keeps contrast on the light background */
+  --hue-sky: 29 100 200;
+  --hue-violet: 109 76 214;
+  --hue-amber: 160 105 10;
+  --hue-coral: 196 78 46;
+  --hue-rose: 200 50 120;
   --surface: 250 249 247;
   --card: 10 10 20;
   --card-alpha: 0.035;
@@ -81,6 +95,53 @@ body {
   transform: translateY(0);
 }
 
+/* ---------- Scroll effects (variables written by components/ScrollFX.tsx) ---------- */
+
+/* Big outlined section number that drifts slower than the page (parallax) */
+.section-index {
+  position: absolute;
+  top: 3.5rem;
+  right: 1.5rem;
+  z-index: 0;
+  font-size: clamp(6rem, 16vw, 11rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  /* Hollow digits: transparent fill, outline in the section's colour (from the tone class) */
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+  opacity: calc(0.1 + var(--sp, 0.5) * 0.22);
+  transform: translateY(calc((0.5 - var(--sp, 0.5)) * 140px));
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+[data-fx] > *:not(.section-index) { position: relative; z-index: 1; }
+
+/* Hero drifts up and fades as you leave it */
+.fx-hero-out {
+  opacity: calc(1 - var(--exit, 0) * 1.4);
+  transform: translateY(calc(var(--exit, 0) * -60px)) scale(calc(1 - var(--exit, 0) * 0.04));
+  transform-origin: left top;
+}
+
+/* Contact card grows into place as it scrolls in */
+.fx-zoom {
+  transform: scale(calc(0.9 + var(--enter, 1) * 0.1));
+  opacity: calc(0.4 + var(--enter, 1) * 0.6);
+  transition: transform 0.1s linear, opacity 0.1s linear;
+}
+
+/* Children of a revealed block pop in one after another (set --i on each child) */
+.stagger > * {
+  opacity: 0;
+  transform: translateY(10px) scale(0.94);
+  transition: opacity 0.45s ease, transform 0.5s cubic-bezier(0.2, 1.4, 0.4, 1), color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition-delay: calc(var(--i, 0) * 40ms + 150ms), calc(var(--i, 0) * 40ms + 150ms), 0s, 0s, 0s;
+}
+.is-visible .stagger > * { opacity: 1; transform: none; }
+.is-visible .stagger > *:hover { transform: translateY(-2px); transition-delay: 0s; }
+
 /* Cursor spotlight: a tight, brighter core for a real highlight plus the
    original wide falloff for ambient fill — reads with much more presence
    than a single soft 12%-opacity wash. */
@@ -131,7 +192,7 @@ body {
 .ambient-glow::after {
   bottom: -26vmax;
   left: -20vmax;
-  background: rgb(var(--accent-soft) / 0.12);
+  background: rgb(var(--hue-violet) / 0.12);
   animation: drift-b 30s ease-in-out infinite alternate;
 }
 @keyframes drift-a {
@@ -191,4 +252,11 @@ body {
   .ambient-glow::after {
     animation: none !important;
   }
+}
+
+/* Scroll effects stay still for people who asked for less motion */
+@media (prefers-reduced-motion: reduce) {
+  .section-index, .fx-hero-out, .fx-zoom { transform: none !important; }
+  .fx-hero-out { opacity: 1 !important; }
+  .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
 }

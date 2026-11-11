@@ -36,6 +36,12 @@ const config: Config = {
         signal: {
           DEFAULT: "#e6b95c",
         },
+        // Supporting hues (theme-aware, see globals.css)
+        sky: "rgb(var(--hue-sky) / <alpha-value>)",
+        violet: "rgb(var(--hue-violet) / <alpha-value>)",
+        amber: "rgb(var(--hue-amber) / <alpha-value>)",
+        coral: "rgb(var(--hue-coral) / <alpha-value>)",
+        rose: "rgb(var(--hue-rose) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
