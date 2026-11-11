@@ -27,3 +27,6 @@ next-env.d.ts
 .vercel
 .env*
 .gstack/
+
+# generated résumé .docx (the PDF in public/ is what gets committed)
+/tools/out/

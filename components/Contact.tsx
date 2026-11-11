@@ -42,7 +42,8 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative mx-auto max-w-5xl px-6 py-28">
+    <section id="contact" data-fx className="relative mx-auto max-w-5xl px-6 py-28">
+      <div className="fx-zoom">
       <Reveal className="relative overflow-hidden rounded-3xl border border-white/10 bg-card px-8 py-16 text-center sm:px-16">
         <div
           aria-hidden
@@ -93,6 +94,7 @@ export default function Contact() {
           ))}
         </div>
       </Reveal>
+      </div>
 
       <footer className="mt-16 flex flex-col items-center gap-2 text-center">
         <p className="font-mono text-xs text-white/60">

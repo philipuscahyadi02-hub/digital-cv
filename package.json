@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cv": "node tools/make-cv.js && powershell -NoProfile -ExecutionPolicy Bypass -File tools/docx-to-pdf.ps1"
   },
   "dependencies": {
     "next": "16.3.1",
@@ -18,6 +19,7 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "autoprefixer": "^10.4.19",
+    "docx": "^9.15.3",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.2"
