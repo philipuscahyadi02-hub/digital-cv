@@ -6,11 +6,12 @@ import Reveal from "./Reveal";
 import TiltCard from "./TiltCard";
 import SectionIndex from "./SectionIndex";
 
-const FILTERS: ("All" | Sector)[] = ["All", "Automotive", "HR Tech", "Internal & B2B"];
+const FILTERS: ("All" | Sector)[] = ["All", "Insurance", "Automotive", "HR Tech", "Internal & B2B"];
 
 // Sector colours: used on the filter chip, the card's tag and its hover border.
 const TONE: Record<(typeof FILTERS)[number], { on: string; tag: string; card: string; dot: string }> = {
   All: { on: "border-accent/60 bg-accent/10 text-accent", tag: "", card: "hover:border-accent/30", dot: "bg-accent" },
+  Insurance: { on: "border-rose/60 bg-rose/10 text-rose", tag: "border-rose/30 bg-rose/10 text-rose", card: "hover:border-rose/35", dot: "bg-rose" },
   Automotive: { on: "border-sky/60 bg-sky/10 text-sky", tag: "border-sky/30 bg-sky/10 text-sky", card: "hover:border-sky/35", dot: "bg-sky" },
   "HR Tech": { on: "border-violet/60 bg-violet/10 text-violet", tag: "border-violet/30 bg-violet/10 text-violet", card: "hover:border-violet/35", dot: "bg-violet" },
   "Internal & B2B": { on: "border-amber/60 bg-amber/10 text-amber", tag: "border-amber/30 bg-amber/10 text-amber", card: "hover:border-amber/35", dot: "bg-amber" },

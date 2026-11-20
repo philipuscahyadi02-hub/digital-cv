@@ -3,6 +3,8 @@
 /* Status badge on a build card (e.g. "Postponed"), readable in both themes */
 .status-badge { color: #fcd34d; border-color: rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.1); }
 :root[data-theme="light"] .status-badge { color: #92400e; border-color: rgba(180, 83, 9, 0.35); background: rgba(251, 191, 36, 0.18); }
+.status-badge.is-info { color: rgb(var(--hue-violet)); border-color: rgb(var(--hue-violet) / 0.4); background: rgb(var(--hue-violet) / 0.12); }
+:root[data-theme="light"] .status-badge.is-info { color: rgb(var(--hue-violet)); border-color: rgb(var(--hue-violet) / 0.4); background: rgb(var(--hue-violet) / 0.1); }
 
 /* ================= Tama ================= */
 .tp {
@@ -157,6 +159,132 @@
 .tp .mood-sparkle .eyes-open, .tp .mood-sparkle .stars, .tp .mood-sparkle .mouth-smile { display: inline; }
 .tp .mood-sparkle .hl { display: none; }
 .tp .mood-shock .eyes-shock, .tp .mood-shock .mouth-o { display: inline; }
+
+/* ================= Théa ================= */
+/* Théa's brand violet; numbers in the preview are illustrative only */
+.th {
+  --v: #5c3899;
+  --v-hi: #a98be0;
+  --ink: #120d1c;
+  position: relative;
+  height: 11rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: radial-gradient(120% 90% at 100% 0%, rgba(92, 56, 153, 0.35), transparent 60%), var(--ink);
+  border: 1px solid rgb(var(--fg) / 0.08);
+  color: #ece6f7;
+  transition: opacity 0.6s ease;
+}
+.th.on-fade { opacity: 0; }
+.th.on-idle { transition: none; }
+
+/* App bar: the Théa mark and the module tabs */
+.th-bar-top { display: flex; align-items: center; gap: 10px; }
+.th-logo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--v);
+  box-shadow: 0 0 12px rgba(169, 139, 224, 0.5);
+  font: 700 14px/1 Georgia, "Times New Roman", serif;
+  color: #fff;
+}
+.th-tabs { display: flex; gap: 4px; min-width: 0; overflow: hidden; }
+.th-tab {
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: rgba(236, 230, 247, 0.55);
+  border: 1px solid transparent;
+  transition: all 0.35s;
+}
+.th-tab.is-on { color: #fff; background: rgba(92, 56, 153, 0.55); border-color: var(--v-hi); }
+/* Phones: tighter tabs so all three module names fit */
+@media (max-width: 480px) {
+  .th-bar-top { gap: 7px; }
+  .th-tabs { gap: 2px; }
+  .th-tab { padding: 3px 6px; font-size: 8.5px; }
+}
+/* Smallest phones (320px): drop the logo so the third tab is not cut */
+@media (max-width: 340px) {
+  .th-logo { display: none; }
+  .th-tab { padding: 3px 5px; font-size: 8px; }
+  .th-long { display: none; }
+}
+
+/* Export toast at the end of the loop */
+.th-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #1f7a4d;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transform: translate(-50%, 10px);
+  transition: opacity 0.3s, transform 0.35s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+.th.on-export .th-toast { opacity: 1; transform: translate(-50%, 0); }
+
+/* Mini dashboard */
+.th-dash {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: 8px;
+  min-height: 0;
+  opacity: 0.35;
+  transform: translateY(6px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+.th:not(.on-idle) .th-dash { opacity: 1; transform: none; }
+.th-side { display: flex; flex-direction: column; gap: 4px; }
+.th-chip {
+  padding: 4px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(169, 139, 224, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(236, 230, 247, 0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s;
+}
+.th-chip.is-on { border-color: var(--v-hi); background: rgba(92, 56, 153, 0.45); color: #fff; }
+.th-main {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(169, 139, 224, 0.15);
+}
+.th-kpi { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.th-kpi span { font-size: 9px; color: rgba(236, 230, 247, 0.6); white-space: nowrap; }
+.th-kpi b { font-size: 16px; font-weight: 800; color: #fff; font-variant-numeric: tabular-nums; }
+.th-bar { height: 4px; border-radius: 99px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.th-bar span { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--v), var(--v-hi)); transition: width 0.7s cubic-bezier(0.2, 0.9, 0.3, 1); }
+.th-spark { flex: 1; display: flex; align-items: flex-end; gap: 3px; min-height: 18px; }
+.th-spark span { flex: 1; border-radius: 2px 2px 0 0; background: rgba(169, 139, 224, 0.55); transition: height 0.5s cubic-bezier(0.2, 0.9, 0.3, 1); }
+.th-note { position: absolute; right: 10px; bottom: 6px; font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(236, 230, 247, 0.35); }
 
 /* ================= Onikiri ================= */
 /* Colours from onikiri/style.css and src/render.js */

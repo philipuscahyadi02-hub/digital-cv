@@ -50,6 +50,13 @@ const roleLine = (title, org, dates, o = {}) => p([
 
 // ---------- content ----------
 const jobs = [
+  { title: "Data Analyst — Strategy Division", org: "Oona Insurance", dates: "01/2026 – Present", bullets: [
+    "Automated Statement of Account (SOA) audit and reconciliation across Finance, Underwriting, Claims and Partnerships, saving 2 mandays per reporting cycle and eliminating manual errors in partner validations",
+    "Analyzed underwriting, claims and renewal performance across 10 classes of business and 9 distribution channels, modeling GWP and loss ratio across multi-year cohorts",
+    "Hardened 4 daily stored-procedure pipelines and built self-service Power BI dashboards that cut reliance on manual Excel reporting",
+    "Théa (Oona's in-house BI platform), as Product Manager and developer building with Claude: improved the main Production module (cross-filtering slicers, branch drill-down to partner plan, Excel export, daily trends) and built the Multifinance and Loss Incurred Daily modules, from business request through UAT to release",
+    "Orchestrated the data flow end to end: raw source data → on-premise DWH → analytics DWH → AWS → Théa",
+  ] },
   { title: "Senior Business Analyst & Presales Consultant", org: "PT Accelist Lentera Indonesia", dates: "06/2025 – 12/2025", bullets: [
     "Led the full Requirement Gathering phase for a new Lexus unit implementation, adapting Toyota’s existing business processes to the Lexus framework",
     "Conducted technical assessments for potential projects (small ERP for data management, Toyota ERP CR for Surat Jalan, Toyota ticketing for after-sales compliance) to define scope and solution proposals",
@@ -92,6 +99,8 @@ const builds = [
 ];
 
 const projects = [
+  ["Oona Insurance (internal)", "Théa in-house BI platform: Production module improvements, Multifinance and Loss Incurred Daily modules, data flow from raw data to AWS"],
+  ["Oona Insurance (internal)", "Power BI reporting suite: Loss Ratio, Portfolio and Production reports and more, tuned with DAX Studio and VertiPaq Analyzer for daily self-service"],
   ["PT Toyota Astra Motor", "Dealer Financing System: cross-system data mapping for credit transactions between manufacturer, dealers and banks; reporting dashboards"],
   ["PT Toyota Astra Motor", "Dealer Financing Improvement: integration with banks' customer systems for seasonal credit, removing manual process steps"],
   ["PT Toyota Astra Motor", "Networking System: employee data enhancement and reporting design"],
@@ -102,15 +111,15 @@ const projects = [
 ];
 
 const skills = [
-  ["Business & Analysis", "Requirement Gathering, Process Mapping, User Story Writing, Stakeholder Management, UI/UX Collaboration, UAT & Manual Testing, Documentation (SOP, FSD, SRS, BRD), Agile & Scrum"],
-  ["Tools", "JIRA, Confluence, ClickUp, Figma / Adobe XD, Notion, Microsoft 365, Google Workspace, SQL, REST APIs (JSON)"],
-  ["Building with Claude", "Claude Code, Claude Agent SDK, MCP tool integration, Claude Design, Claude Artifacts, gstack skills, AGENTS.md / CLAUDE.md project rules, AI-assisted PRDs & decision logs, human-in-the-loop approval gates"],
+  ["Business & Analysis", "Requirement Gathering, Process Mapping, User Story Writing, Stakeholder Management, UI/UX Collaboration, UAT & Manual Testing, Documentation (SOP, FSD, SRS, BRD), Agile & Scrum, Insurance Portfolio & Loss Ratio Analytics, Data Pipeline Orchestration"],
+  ["Data & Tools", "SQL & Stored Procedures, Power BI / DAX, Data Warehousing (DWH), JIRA, Confluence, ClickUp, Figma / Adobe XD, Notion, Microsoft 365, Google Workspace, REST APIs (JSON)"],
+  ["Building with Claude", "Claude Code, Claude Agent SDK, MCP tool integration, Claude Design, Claude Artifacts, AGENTS.md / CLAUDE.md project rules, AI-assisted PRDs & decision logs"],
 ];
 
 // ---------- layout ----------
 const body = [];
 body.push(p([new TextRun({ text: "Philipus Cahyadi", font: FONT, size: 46, bold: true, color: "111111" })], { after: 20 }));
-body.push(p([r("Business Analyst  ·  Presales Consultant  ·  Product Manager", { size: 22, color: BLUE, bold: true })], { after: 60 }));
+body.push(p([r("Data Analyst  ·  Business Analyst  ·  Presales Consultant  ·  Product Manager", { size: 22, color: BLUE, bold: true })], { after: 60 }));
 body.push(p([
   r("+62 822 6932 2040   |   philipus.cahyadi02@gmail.com   |   North Jakarta   |   ", { size: 18, color: GREY }),
   link("LinkedIn", "https://www.linkedin.com/in/philipuscahyadi0211"),
@@ -119,7 +128,7 @@ body.push(p([
 ], { after: 0 }));
 
 body.push(section("SUMMARY"));
-body.push(p([r("IT Business Analyst and Presales Consultant with ~4 years bridging stakeholders and engineering across Automotive, Logistics, HRMS and B2B platforms. I run requirement gathering, turn complex needs into clear specs and roadmaps, and lead cross-functional teams to on-time delivery. I also build my own products end to end, directing Claude as a coding agent from PRD to shipped code.")], { align: AlignmentType.JUSTIFIED }));
+body.push(p([r("Data Analyst and former Business Analyst / Presales Consultant with ~4 years bridging stakeholders, data and engineering across Insurance, Automotive, Logistics, HRMS and B2B platforms. I run requirement gathering, turn complex needs into clear specs, pipelines and dashboards, and lead cross-functional teams to on-time delivery. I also build my own products end to end, directing Claude as a coding agent from PRD to shipped code.")], { align: AlignmentType.JUSTIFIED }));
 
 body.push(section("EXPERIENCE"));
 jobs.forEach((j, n) => {
@@ -127,13 +136,8 @@ jobs.forEach((j, n) => {
   j.bullets.forEach((b) => body.push(bullet(b)));
 });
 
-body.push(section("PERSONAL BUILDS  (WITH CLAUDE)"));
-builds.forEach((b, n) => {
-  body.push(p([
-    r(b.name, { bold: true }), r(`  ·  ${b.tag}  ·  `, { color: GREY }), link(b.url[0], b.url[1]), r(`\t${b.status}`, { color: GREY, size: 18 }),
-  ], { tabs: rightTab, keepNext: true, before: n ? 80 : 0, after: 20 }));
-  body.push(p([r(b.desc)], { align: AlignmentType.JUSTIFIED }));
-});
+// The personal builds (Tama, Onikiri, SNITCH, WangKu) live on the website only, not in the
+// printed résumé (the `builds` list above is kept so it is easy to bring back).
 
 body.push(section("KEY CLIENT PROJECTS"));
 projects.forEach(([client, what]) => body.push(new Paragraph({
