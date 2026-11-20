@@ -6,6 +6,7 @@ import TamaPreview from "./previews/TamaPreview";
 import SnitchPreview from "./previews/SnitchPreview";
 import WangkuPreview from "./previews/WangkuPreview";
 import OnikiriPreview from "./previews/OnikiriPreview";
+import TheaPreview from "./previews/TheaPreview";
 
 // Each build wears its own app's colour: Tama pink, SNITCH alarm red/coral, WangKu banking blue.
 const TONES = {
@@ -32,6 +33,14 @@ const TONES = {
     chip: "border-amber/25 bg-amber/[0.06]",
     link: "text-amber",
     bar: "from-amber/80 to-amber/0",
+  },
+  thea: {
+    card: "hover:border-violet/40",
+    glow: "bg-violet/15",
+    tag: "text-violet",
+    chip: "border-violet/25 bg-violet/[0.06]",
+    link: "text-violet",
+    bar: "from-violet/80 to-violet/0",
   },
   wangku: {
     card: "hover:border-sky/40",
@@ -63,7 +72,7 @@ export default function Builds() {
           Things I&apos;ve built
         </h2>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/60">
-          Personal products I took from PRD to shipped code, on{" "}
+          Work and personal products I&apos;ve taken from PRD to shipped code. The personal ones are on{" "}
           <a
             href={profile.social.github}
             target="_blank"
@@ -76,11 +85,12 @@ export default function Builds() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid gap-5 sm:grid-cols-2">
+      {/* grid-cols-1 = minmax(0, 1fr): a wide preview can never stretch the column past the screen */}
+      <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
         {builds.map((b, idx) => {
           const t = b.preview ? TONES[b.preview] : DEFAULT_TONE;
           return (
-          <Reveal key={b.name} delay={(idx % 3) * 80}>
+          <Reveal key={b.name} delay={(idx % 3) * 80} className={b.featured ? "sm:col-span-2" : ""}>
             <TiltCard className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-card p-6 transition-colors ${t.card}`}>
               <div
                 aria-hidden
@@ -97,6 +107,7 @@ export default function Builds() {
                     {b.preview === "snitch" && <SnitchPreview />}
                     {b.preview === "wangku" && <WangkuPreview />}
                     {b.preview === "onikiri" && <OnikiriPreview />}
+                    {b.preview === "thea" && <TheaPreview />}
                   </>
                 );
                 // A playable build: the preview links straight to the live site (new tab)
@@ -127,7 +138,9 @@ export default function Builds() {
               <div className="mt-2 flex items-center gap-2">
                 <h3 className="text-lg font-semibold text-white">{b.name}</h3>
                 {b.status && (
-                  <span className="status-badge rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider">
+                  <span
+                    className={`status-badge rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${b.statusTone === "info" ? "is-info" : ""}`}
+                  >
                     {b.status}
                   </span>
                 )}

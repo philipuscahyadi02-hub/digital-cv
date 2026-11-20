@@ -1,6 +1,6 @@
 export const profile = {
   name: "Philipus Cahyadi",
-  roles: ["Business Analyst", "Presales Consultant", "Product Manager"],
+  roles: ["Data Analyst", "Business Analyst", "Presales Consultant", "Product Manager"],
   tagline:
     "Bridging technology and purpose, IT Business Analyst passionate about product development and driving social innovation through impactful solutions.",
   location: "North Jakarta, Jakarta",
@@ -13,12 +13,12 @@ export const profile = {
   },
   // Short version for the top of the site: recruiters skim, so lead with who and proof.
   pitch:
-    "~4 years in business analysis, presales and product delivery, turning stakeholder needs into shipped software across Automotive, Logistics, HRMS and B2B — and now building my own products with Claude.",
+    "~4 years across business analysis, presales, product and data analytics, turning stakeholder needs into shipped software and trusted data across Insurance, Automotive, Logistics, HRMS and B2B — and now building my own products with Claude.",
   stats: [
-    { value: "4 yrs", label: "BA, presales & product delivery" },
+    { value: "4 yrs", label: "BA, presales, product & data" },
     { value: "20+", label: "client demos, +10% demo-to-deal" },
     { value: "100%", label: "on-time milestone delivery" },
-    { value: "4", label: "products built with Claude" },
+    { value: "5", label: "products built with Claude" },
   ],
   summary:
     "A results-driven professional with a strong foundation in Information Systems and a dedication to continuous technological exploration and relevance. I thrive as the key interface, prioritizing direct stakeholder communication to champion innovation and translate strategic needs into practical, high-impact digital solutions. Proven in bridging the gap between presales discovery and technical execution—delivering across diverse sectors including Automotive, Logistics, HRMS, and B2B Platforms—my core strength lies in solutioning complex challenges into actionable roadmaps. I am committed to leading cross-functional teams and ensuring timely, high-quality delivery of every project.",
@@ -40,6 +40,19 @@ export type Experience = {
 };
 
 export const experience: Experience[] = [
+  {
+    period: "Jan 2026 — Present",
+    title: "Data Analyst — Strategy Division",
+    company: "Oona Insurance",
+    highlights: [
+      "Automated Statement of Account (SOA) audit and reconciliation across Finance, Underwriting, Claims and Partnerships, saving 2 mandays per reporting cycle and eliminating manual errors in partner validations.",
+      "Analyzed underwriting, claims and renewal performance across 10 classes of business and 9 distribution channels, modeling GWP and loss ratio across multi-year cohorts.",
+      "Hardened 4 daily stored-procedure pipelines, resolving null-handling and schema issues so datasets land before business hours.",
+      "Built and tuned self-service Power BI dashboards that cut the team's reliance on manual Excel reporting for business reviews.",
+      "Théa, Oona's in-house BI platform, as Product Manager and developer building with Claude: improved the main Production module (cross-filtering Channel → Producer slicers, branch drill-down to partner plan, Excel export, daily trends) and built new modules (Multifinance, Loss Incurred Daily, Renewals enhancements), taking each from business request through UAT to release.",
+      "Orchestrated the data flow end to end: raw source data → on-premise DWH → analytics DWH → AWS → Théa.",
+    ],
+  },
   {
     period: "Jun 2025 — Dec 2025",
     title: "Senior Business Analyst & Presales Consultant",
@@ -101,6 +114,8 @@ export const skills = {
     "UAT & Manual Testing",
     "Documentation (SOP, Functional Specs)",
     "Agile & Scrum",
+    "Insurance Portfolio & Loss Ratio Analytics",
+    "Data Pipeline Orchestration",
   ],
   tools: [
     "JIRA",
@@ -111,6 +126,9 @@ export const skills = {
     "Microsoft 365",
     "Google Workspace",
     "SQL (DBMS)",
+    "SQL Stored Procedures",
+    "Power BI / DAX",
+    "Data Warehousing (DWH)",
     "API (JSON)",
   ],
   // What I've actually built with Claude: Tama, WangKu, SNITCH and this site.
@@ -120,15 +138,13 @@ export const skills = {
     "MCP tool integration",
     "Claude Design (UI prototyping)",
     "Claude Artifacts (rapid prototypes)",
-    "gstack skills (CEO, eng & design reviews)",
     "AGENTS.md / CLAUDE.md project rules",
     "AI-assisted PRD, architecture & decision logs",
     "Prompt & persona design",
-    "Human-in-the-loop approval gates",
   ],
 };
 
-export type Sector = "Automotive" | "HR Tech" | "Internal & B2B";
+export type Sector = "Insurance" | "Automotive" | "HR Tech" | "Internal & B2B";
 
 export type Project = {
   sector: Sector;
@@ -150,11 +166,26 @@ export type Build = {
   play?: string;
   /** Optional status badge, e.g. "Postponed". */
   status?: string;
+  /** Badge colour: "warn" (amber, default) or "info" (violet). */
+  statusTone?: "warn" | "info";
+  /** Show as a wide card across the whole row. */
+  featured?: boolean;
   /** Optional animated preview at the top of the card. */
-  preview?: "tama" | "snitch" | "wangku" | "onikiri";
+  preview?: "tama" | "snitch" | "wangku" | "onikiri" | "thea";
 };
 
 export const builds: Build[] = [
+  {
+    name: "Théa",
+    tagline: "In-house BI platform · Oona Insurance",
+    description:
+      "My part, as Product Manager and developer building with Claude: improved the main Production module (cross-filtering Channel → Producer slicers, branch drill-down to partner plan, Excel export, daily trends), built the Multifinance and Loss Incurred Daily modules, and added Renewals enhancements, taking each from business request through UAT to release.",
+    stack: ["Claude Code", "Next.js", "SQL", "Product Management", "UAT"],
+    status: "Internal · Oona",
+    statusTone: "info",
+    featured: true,
+    preview: "thea",
+  },
   {
     name: "Tama",
     tagline: "Agentic AI desktop companion",
@@ -196,6 +227,20 @@ export const builds: Build[] = [
 ];
 
 export const projects: Project[] = [
+  {
+    sector: "Insurance",
+    client: "Oona Insurance — Internal",
+    name: "Théa — In-house BI Platform",
+    description:
+      "Product Manager and developer building with Claude: improved the Production module, built Multifinance and Loss Incurred Daily, and orchestrated the data flow from raw data through on-premise and analytics warehouses to AWS and the platform.",
+  },
+  {
+    sector: "Insurance",
+    client: "Oona Insurance — Internal",
+    name: "Power BI Reporting Suite",
+    description:
+      "Developed Power BI reports for Loss Ratio, Portfolio, Production and more, across Class of Business and Type of Cover; performance-tuned with DAX Studio and VertiPaq Analyzer so stakeholders get daily self-service numbers instead of manual Excel.",
+  },
   {
     sector: "Internal & B2B",
     client: "PT Accelist Lentera Indonesia — Internal",
